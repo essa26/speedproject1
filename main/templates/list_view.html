@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+{% block title %} List View {% endblock %}
+{% block body %}
+
+	{% for speed_object in speed_objects %}
+    	<a href="/detail_view/{{ speed_object.pk }}"</br> {{ speed_object.title }}</a>
+
+    	{% if request.user.is_authenticated %}
+    	--- <a href="/vote/{{ speed_object.pk }}/?vote_type=up">Vote Up: {{ speed_object.up_votes.count }}</a>
+    	--- <a href="/vote/{{ speed_object.pk }}/?vote_type=down">Vote Down: {{ speed_object.down_votes.count }}</a>
+    	{% endif %}
+
+        {% thumbnail speed_object.image "100x100" crop="4px 4px" format="PNG" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+        {% endthumbnail %}
+
+    	{% if request.user == speed_object.user %}
+    	--<a href="/update_view/{{ speed_object.pk }}/">Edit</a>
+
+    	--<a href="/delete_view/{{ speed_object.pk }}/">Delete</a></br>
+    	{% endif %}
+    	</br>
+	{% endfor %}
+
+    {% if speed_objects.object_list and speed_objects.paginator.num_pages > 1 %}
+
+        {% if speed_objects.has_previous %}
+            <a href="?page={{ speed_objects.previous_page_number }}">back </a>
+        {% endif %}
+
+        -- {{ speed_objects.number }} of {{ speed_objects.paginator.num_pages }}
+
+        {% if speed_objects.has_next %}
+            <a href="?page={{ speed_objects.next_page_number }}"> next</a>
+        {% endif %}
+
+    {% endif %}
+
+
+
+</br>
+
+<a href="/create_view2/">Create An Object</a>
+{% endblock %}

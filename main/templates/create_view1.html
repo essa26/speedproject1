@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+	<form action="/create_view1/" enctype="multipart/form-data" method="POST" >
+	{% csrf_token %}
+
+	{{ form.as_p }}
+
+	<input type="submit" value="Create Object"> 
+	
+{% endblock %}
