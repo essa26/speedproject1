@@ -6,20 +6,20 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 class CustomUserCreationForm(UserCreationForm):
 
-        def __init__(self, *args, **kwargs):
-                super(CustomUserCreationForm, self).__init__(*args, **kwargs)
-                del self.fields['username']
+        # def __init__(self, *args, **kwargs):
+        #         super(CustomUserCreationForm, self).__init__(*args, **kwargs)
+        #         del self.fields['username']
 
         class Meta:
                 model = CustomUser
-                fields = ('email',)
+                fields = ('username',)
 
 
 class CustomUserChangeForm(UserChangeForm):
 
-        def __init__(self, *args, **kwargs):
-                super(CustomUserChangeForm, self).__init__(*args, **kwargs)
-                del self.fields['username']
+        # def __init__(self, *args, **kwargs):
+        #         super(CustomUserChangeForm, self).__init__(*args, **kwargs)
+        #         del self.fields['username']
 
         class Meta:
                 model = CustomUser
@@ -38,6 +38,7 @@ class SpeedModelForm2(forms.Form):
         image = forms.ImageField(required=True)
         user = forms.CharField(required=False, widget=forms.HiddenInput)
 
+
 class SpeedModelUpdateForm(forms.Form):
         title = forms.CharField(required=True)
         info = forms.CharField(required=True, widget=forms.Textarea)
@@ -47,6 +48,7 @@ class SpeedModelUpdateForm(forms.Form):
 class UserSignUp(forms.Form):
         username = forms.CharField(required=True)
         password = forms.CharField(required=True, widget=forms.PasswordInput())
+
 
 class UserLogIn(forms.Form):
         username = forms.CharField(required=True)

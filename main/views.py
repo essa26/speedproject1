@@ -1,4 +1,4 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
 
 # Create your views here
 from main.models import SpeedModel
@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from main.forms import SpeedModelForm, SpeedModelForm2, SpeedModelUpdateForm, UserSignUp, UserLogIn
 from django.contrib.auth.models import User
 
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout as auth_logout
 
 
 from django.contrib.auth.decorators import login_required
@@ -233,7 +233,13 @@ def vote(request, pk):
     return HttpResponseRedirect('/list_view/')
 
 
+def login(request):
+    return render(request, 'social_login.html')
 
+
+def logout(request):
+    auth_logout(request)
+    return redirect('/')
 
 
 

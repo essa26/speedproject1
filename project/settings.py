@@ -27,8 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#CONSUMER_KEY = 'ii46JkbKCSpjYshMul4gsEcv2'
+#CONSUMER_SECRET = 'Hl4XXr93a9Rz2BFoLArYD1gO6546h7isRqpsf36SLrQQhm8ecN'
+
 AUTH_USER_MODEL = 'main.CustomUser'
 
+SOCIAL_AUTH_TWITTER_KEY = 'ii46JkbKCSpjYshMul4gsEcv2'
+SOCIAL_AUTH_TWITTER_SECRET = 'Hl4XXr93a9Rz2BFoLArYD1gO6546h7isRqpsf36SLrQQhm8ecN'
 
 # Application definition
 
@@ -41,6 +46,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'main',
     'sorl.thumbnail',
+    'social.apps.django_app.default',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,6 +59,25 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
+    'social.apps.django_app.context_processors.backends',
+    'social.apps.django_app.context_processors.login_redirect',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'social.backends.facebook.FacebookOAuth2',
+    'social.backends.google.GoogleOAuth2',
+    'social.backends.twitter.TwitterOAuth',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 ROOT_URLCONF = 'project.urls'
@@ -91,6 +117,7 @@ DATABASES = {
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/"
 
 LANGUAGE_CODE = 'en-us'
 
